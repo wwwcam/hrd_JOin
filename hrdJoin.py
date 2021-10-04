@@ -13,17 +13,10 @@ from openpyxl.drawing.image import Image
 import os
 import os.path
 import re
-import schedule
 import pyautogui as pag
 import pyperclip
-from PIL import ImageGrab # 화면 캡쳐
-import keyboard # 종료 키
-import xlwings as xw
-from win32com.client import GetObject
-import subprocess
-import glob
-from win32com.client import Dispatch
-from kuksiwon import *
+
+
 
 
 def By_xpath(xpath):
