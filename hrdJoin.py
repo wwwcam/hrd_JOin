@@ -242,6 +242,10 @@ def idcrt(driver,i,nm,jumin,tongsinsa,tel, id_inp,pw_inp,adrs):
    link = driver.find_element_by_css_selector('#intgIdSelFrm > div > ul > li:nth-child(2) > p:nth-child(3) > button')
    driver.execute_script("arguments[0].click();", link)
    time.sleep(1)
+   #id 저장 
+   load_ws[f'J{i}'].value = f'{idc}'
+   load_wb.save(filepath)
+
    #다음페이지
    link = driver.find_element_by_css_selector('#content > div.control > button.next')
    driver.execute_script("arguments[0].click();", link)
@@ -294,8 +298,8 @@ def login(driver,i,nm,jumin,tongsinsa,tel, id_inp,pw_inp,adrs):
 
 if __name__ == "__main__" :
    
-   sttNum = 219
-   lastNum = 220
+   sttNum = 4
+   lastNum = 32
 
    for i in range(sttNum, lastNum): 
       driver = webdriver.Chrome(executable_path='chromedriver')
@@ -312,12 +316,19 @@ if __name__ == "__main__" :
       #i = input('훈련생의 번호를 입력하시요:   ')
       #tel = input('통신사를 입력해주세요:    ')
 
-      load_wb = load_workbook("직무교육총괄.xlsx", data_only=True)
-      load_ws = load_wb['관리대장']
+      #load_wb = load_workbook("직무교육총괄.xlsx", data_only=True)
+      #load_ws = load_wb['관리대장']      
+      # nm = load_ws[f'D{i}'].value ; jumin = load_ws[f'E{i}'].value[0:6] ; sex = load_ws[f'E{i}'].value ; sex = sex[7] 
+      #hpNum = load_ws[f'F{i}'].value ; hdp = re.sub('-','',hpNum) ; tongsinsa = load_ws[f'K{i}'].value ; tel = load_ws[f'L{i}'].value 
+      #id_inp = load_ws[f'M{i}'].value ; pw_inp = load_ws[f'N{i}'].value ; adrs = load_ws[f'O{i}'].value ; opw = "123456a!@" ; email = "wwwcam@naver.com"
+      filepath = "로뎀직무교육 신청명단 양식-2021.xlsx"
+      load_wb = load_workbook(filepath, data_only=True)
+      load_ws = load_wb['Sheet1']
 
-      nm = load_ws[f'D{i}'].value ; jumin = load_ws[f'E{i}'].value[0:6] ; sex = load_ws[f'E{i}'].value ; sex = sex[7] 
-      hpNum = load_ws[f'F{i}'].value ; hdp = re.sub('-','',hpNum) ; tongsinsa = load_ws[f'K{i}'].value ; tel = load_ws[f'L{i}'].value 
-      id_inp = load_ws[f'M{i}'].value ; pw_inp = load_ws[f'N{i}'].value ; adrs = load_ws[f'O{i}'].value ; opw = "123456a!@" ; email = "wwwcam@naver.com"
+   
+      nm = load_ws[f'E{i}'].value ; jumin = load_ws[f'F{i}'].value[0:6] ; sex = load_ws[f'F{i}'].value ; sex = sex[7] 
+      hpNum = load_ws[f'G{i}'].value ; hdp = re.sub('-','',hpNum) ; tongsinsa = load_ws[f'H{i}'].value ; tel = load_ws[f'I{i}'].value 
+      id_inp = load_ws[f'J{i}'].value ; pw_inp = load_ws[f'K{i}'].value ; adrs = load_ws[f'L{i}'].value ; opw = "123456a!@" ; email = "wwwcam@naver.com"
       '''nm = input('이름을 입력하시요:   ')
       jumin = input('생년월일을 입력하시요:   ')
       sex = input('성별을 입력하시요:   ')
@@ -354,7 +365,8 @@ if __name__ == "__main__" :
             odlId = driver.find_element_by_css_selector("#content > div.article > p > em")
             pag.confirm(f'이전 아이디 입니다.\n{odlId.text}', '알림')
             pag.sleep(0.5)
-            
+            #id 저장 
+            load_ws[f'J{i}'].value = odlId.text
             #link = driver.find_element_by_css_selector('#content > div.control > button')
             #driver.execute_script("arguments[0].click();", link)
 
